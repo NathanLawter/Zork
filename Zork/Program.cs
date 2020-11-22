@@ -3,62 +3,55 @@ using System.ComponentModel.Design;
 
 namespace Zork
 {
+    enum Commands
+    {
+        QUIT,
+        LOOK,
+        NORTH,
+        SOUTH,
+        EAST,
+        WEST,
+        UNKNOWN
+    }
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Zork");
+            Console.WriteLine("Welcome to Zork!");
+            Commands command = Commands.UNKNOWN;
+            while (command != Commands.QUIT)
+            {
+                Console.Write("> ");
+                command = ToCommand(Console.ReadLine().Trim());
 
-            string inputString = Console.ReadLine();
-            Commands command = ToCommand(inputString.Trim().ToUpper());
-            Console.WriteLine(command);
+                string outputString;
+                switch (command)
+                {
+                    case Commands.QUIT:
+                        outputString = "Thank you for playing!";
+                        break;
+
+                    case Commands.LOOK:
+                        outputString = "This is an open field west of a white house with a boarded front door. \nA rubber mat saying 'Welcome to Zork!' lies by the door.";
+                        break;
+
+                    case Commands.NORTH:
+                    case Commands.SOUTH:
+                    case Commands.EAST:
+                    case Commands.WEST:
+                        outputString = $"You moved {command}.";
+                        break;
+
+                    default:
+                        outputString = "Unknown command.";
+                        break;
+                }
+
+                Console.WriteLine(outputString);
+            }
         }
 
-        private static Commands ToCommand(string commandString)
-        {
-            try
-            {
-                return Enum.TryParse<Commands>(commandString, true, out commands Result);
-            }
-            catch
-            {
-                return Commands.UNKNOWN
-            }
-        }
-            Commands command;
-            switch (commandString)
-            {
-                case "QUIT":
-                    command = Commands.QUIT;
-                    break;
+        private static Commands ToCommand(string commandString) => Enum.TryParse(commandString, true, out Commands result) ? result : Commands.UNKNOWN;
 
-                case "LOOK":
-                    command = Commands.LOOK;
-                    break;
-
-                case "NORTH":
-                    command = Commands.NORTH;
-                    break;
-
-                case "SOUTH":
-                    command = Commands.SOUTH;
-                    break;
-
-                case "EAST":
-                    command = Commands.EAST;
-                    break;
-
-                case "WEST":
-                    command = Commands.WEST;
-                    break;
-
-                default:
-                    command = Commands.UNKNOWN;
-                    break;
-            }
-
-            return command;
-            }
-        }
     }
 }
