@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 
 namespace Zork
 {
@@ -9,18 +10,54 @@ namespace Zork
             Console.WriteLine("Welcome to Zork");
 
             string inputString = Console.ReadLine();
-            inputString = inputString.ToUpper();
-            if (inputString == "QUIT")
+            Commands command = ToCommand(inputString.Trim().ToUpper());
+            Console.WriteLine(command);
+        }
+
+        private static Commands ToCommand(string commandString)
+        {
+            try
             {
-                Console.WriteLine("Thank you for playing.");
+                return Enum.TryParse<Commands>(commandString, true, out commands Result);
             }
-            else if (inputString == "LOOK")
+            catch
             {
-                Console.WriteLine("This is an open field west of a white house, with a boarded front door.\nA rubber mat saying 'Welcome to Zork' lies by the door.");
+                return Commands.UNKNOWN
             }
-            else
+        }
+            Commands command;
+            switch (commandString)
             {
-                Console.WriteLine("Unrecognized command.");
+                case "QUIT":
+                    command = Commands.QUIT;
+                    break;
+
+                case "LOOK":
+                    command = Commands.LOOK;
+                    break;
+
+                case "NORTH":
+                    command = Commands.NORTH;
+                    break;
+
+                case "SOUTH":
+                    command = Commands.SOUTH;
+                    break;
+
+                case "EAST":
+                    command = Commands.EAST;
+                    break;
+
+                case "WEST":
+                    command = Commands.WEST;
+                    break;
+
+                default:
+                    command = Commands.UNKNOWN;
+                    break;
+            }
+
+            return command;
             }
         }
     }
