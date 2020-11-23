@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Commands.cs" />
+    <None Include="Commands.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Commands.cs" />
+    <None Update="Rooms.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
