@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Command.cs" />
+    <Compile Remove="Commands.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Command.cs" />
+    <None Include="Commands.cs" />
   </ItemGroup>
 
 </Project>
